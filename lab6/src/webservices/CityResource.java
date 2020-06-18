@@ -10,19 +10,6 @@ import java.util.List;
 @Path("/cities")
 @Produces({MediaType.APPLICATION_JSON})
 public class CityResource {
-    @POST
-    public String createCity(
-            @FormParam("name") String name,
-            @FormParam("country") String country,
-            @FormParam("founded") String founded,
-            @FormParam("population") String population,
-            @FormParam("area") String area
-    ) throws EmptyMethodParameterError, InvalidIntegerError {
-        this.checkPersonParameters(name, country, founded, population, area);
-        int result = newDAO().createCity(name, country, founded, population, area);
-        return Integer.toString(result);
-    }
-
     @GET
     public List<City> getCities(
             @QueryParam("name") String name,
@@ -49,6 +36,19 @@ public class CityResource {
         this.checkPersonParameters(name, country, founded, population, area);
         boolean result = newDAO().updateCity(id, name, country, founded, population, area);
         return Boolean.toString(result);
+    }
+	
+	@POST
+    public String createCity(
+            @FormParam("name") String name,
+            @FormParam("country") String country,
+            @FormParam("founded") String founded,
+            @FormParam("population") String population,
+            @FormParam("area") String area
+    ) throws EmptyMethodParameterError, InvalidIntegerError {
+        this.checkPersonParameters(name, country, founded, population, area);
+        int result = newDAO().createCity(name, country, founded, population, area);
+        return Integer.toString(result);
     }
 
     @DELETE

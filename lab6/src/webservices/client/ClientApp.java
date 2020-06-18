@@ -66,22 +66,6 @@ public class ClientApp {
         }
     }
 
-    private static String createCity(
-            Client client,
-            String name,
-            String country,
-            String founded,
-            String population,
-            String area
-    ) {
-        WebResource webResource = client.resource(URL);
-        MultivaluedMap<String, String> formData = cityFormData(name, country, founded, population, area);
-        ClientResponse response = webResource
-                .type(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
-                .post(ClientResponse.class, formData);
-        return checkResponse(response);
-    }
-
     private static List<City> getCities(
             Client client,
             String name,
@@ -113,6 +97,22 @@ public class ClientApp {
         GenericType<List<City>> type = new GenericType<List<City>>() {
         };
         return response.getEntity(type);
+    }
+
+    private static String createCity(
+            Client client,
+            String name,
+            String country,
+            String founded,
+            String population,
+            String area
+    ) {
+        WebResource webResource = client.resource(URL);
+        MultivaluedMap<String, String> formData = cityFormData(name, country, founded, population, area);
+        ClientResponse response = webResource
+                .type(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
+                .post(ClientResponse.class, formData);
+        return checkResponse(response);
     }
 
     private static String updateCity(
